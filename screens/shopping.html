@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shopping.css" type="text/css">
+    <script src="shopping.js" defer></script>
+    <title>Shopping List</title>
+</head>
+<body>
+    <header>Shopping List</header>
+    
+    <div id="shopping-container">
+        <div id="shopping-list-section">
+            <div class="section-title">
+                <h2>Your List <span id="item-count">(0)</span></h2>
+                <button id="toggleButton" onclick="toggleShoppingList()">SEE/HIDE</button> <!-- "v" icon -->
+                <button id="addButton" onclick="showAddItemPopup()">+</button> <!-- New "+" button -->
+            </div>
+            <table id="shopping-list" class="collapsed">
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- <div id="recommended-section">
+            <h2>Recommended Items</h2>
+            <ul id="recommended-items"></ul>
+        </div> -->
+    </div>
+
+    <!-- Popup for adding items -->
+    <div id="popup" class="hidden">
+        <div class="popup-content">
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1">
+            <button onclick="addItem()">Add Item</button>
+            <button onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <a href="home.html" id="homeIcon"><img src="../icons/homeIcon.png" alt="homeIcon"></a>
+        <a href="inventory.html" id="inventoryIcon"><img src="../icons/inventoryIcon.png" alt="inventoryIcon"></a>
+        <a href="recipes.html" id="recipesIcon"><img src="../icons/recipesIcon.png" alt="recipesIcon"></a>
+        <a href="shopping.html" id="shoppingIcon"><img src="../icons/shoppingIcon.png" alt="shoppingIcon"></a>
+        <a href="profile.html" id="profileIcon"><img src="../icons/profileIcon.png" alt="profileIcon"></a>
+    </footer>
+</body>
+</html>
