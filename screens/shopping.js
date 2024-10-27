@@ -2,100 +2,103 @@ const shoppingList = [];
 const shoppingListTable = document.getElementById("shopping-list");
 const itemCountSpan = document.getElementById("item-count");
 const popup = document.getElementById("popup");
+const inventoryPopup = document.getElementById("inventory-popup");
+const inventoryList = document.getElementById("inventory-list");
+
+
+/* SAMPLE WIP INVENTORY, WILL GRAB THIS FROM OTHER PAGE... */
 const inventory = [
     { name: "Milk", quantity: 1 },
     { name: "Eggs", quantity: 5 },
     { name: "Bread", quantity: 0 }
 ];
 
-// Show popup to add an item
-function showAddItemPopup() {
-    popup.classList.remove("hidden");
-}
 
-// Close the add item popup
-function closePopup() {
-    popup.classList.add("hidden");
-}
 
-// Add an item to the shopping list from the popup input fields
+
+
+/* ===== Add button ====== */
+function promptAdd() { popup.classList.remove("hidden"); }
+function cancelAdd() { popup.classList.add("hidden"); }
+
+/* Adds an item. If the name matches, the quantity will increase. */
 function addItem() {
-    const itemName = document.getElementById("item-name").value;
-    const quantity = parseInt(document.getElementById("quantity").value, 10);
-
-    if (itemName && quantity > 0) {
+    const itemName = document.getElementById("item-name").value.trim();
+    const quantity = parseInt(document.getElementById("quantity").value.trim(), 10);
+    // check if there is a name and quantity is greater than 0
+    if (itemName && (quantity > 0)) {
         const existingItem = shoppingList.find(item => item.name.toLowerCase() === itemName.toLowerCase());
-        
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            shoppingList.push({ name: itemName, quantity });
-        }
-        
+        existingItem ? existingItem.quantity += quantity : shoppingList.push({ name: itemName, quantity });
         updateShoppingList();
         itemCountSpan.textContent = `(${shoppingList.length})`;
     }
-
-    closePopup();
-    document.getElementById("item-name").value = ""; // Clear input
-    document.getElementById("quantity").value = ""; // Clear input
+    // close popup and clear input fields
+    cancelAdd();
+    document.getElementById("item-name").value = "";
+    document.getElementById("quantity").value = "";
 }
 
-// Function to choose an item from inventory
-function chooseFromInventory() {
-    const selectedItem = prompt(
-        "Choose an item to add from inventory:\n" + 
-        inventory.map((item, index) => `${index + 1}. ${item.name} (${item.quantity})`).join("\n")
-    );
 
-    const index = parseInt(selectedItem) - 1;
 
-    if (!isNaN(index) && inventory[index]) {
-        const inventoryItem = inventory[index];
-        const existingItem = shoppingList.find(item => item.name.toLowerCase() === inventoryItem.name.toLowerCase());
 
-        if (existingItem) {
-            existingItem.quantity += inventoryItem.quantity;
-        } else {
-            shoppingList.push({ name: inventoryItem.name, quantity: inventoryItem.quantity });
-        }
 
-        updateShoppingList();
-        itemCountSpan.textContent = `(${shoppingList.length})`;
-    }
+
+/* ===== Inventory button ===== */
+function promptInven() { inventoryPopup.classList.remove("hidden"); populateInventoryList(); }
+function cancelInven() { inventoryPopup.classList.add("hidden"); }
+
+// populate inventory list in the popup
+function populateInventoryList() {
+    inventoryList.innerHTML = "";
+    inventory.forEach((item, index) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${item.name} (Available: ${item.quantity})`;
+        listItem.onclick = () => addItemFromInventory(index);
+        inventoryList.appendChild(listItem);
+    });
 }
 
-// Update the shopping list display
+// Add an item from inventory to the shopping list
+function addItemFromInventory(index) {
+    const inventoryItem = inventory[index];
+    const existingItem = shoppingList.find(item => item.name.toLowerCase() === inventoryItem.name.toLowerCase());
+    existingItem ? existingItem.quantity += inventoryItem.quantity : shoppingList.push({ name: inventoryItem.name, quantity: inventoryItem.quantity });
+    updateShoppingList();
+    itemCountSpan.textContent = `(${shoppingList.length})`;
+    cancelInven();
+}
+
+
+
+
+
+/* Shopping List (like the actual list) */
 function updateShoppingList() {
     const tbody = shoppingListTable.querySelector("tbody");
-    tbody.innerHTML = ""; // Clear previous items
-
+    tbody.innerHTML = "";
     shoppingList.forEach((item, index) => {
         const row = document.createElement("tr");
-
         const nameCell = document.createElement("td");
         nameCell.textContent = item.name;
-
         const quantityCell = document.createElement("td");
         quantityCell.textContent = item.quantity;
-
         const buttonCell = document.createElement("td");
 
-        // Create the minus button
+        // Minus button
         const minusButton = document.createElement("button");
         minusButton.textContent = "-";
         minusButton.classList.add("minus-button");
         minusButton.onclick = () => updateQuantity(index, -1);
         buttonCell.appendChild(minusButton);
 
-        // Create the plus button
+        // Plus button
         const plusButton = document.createElement("button");
         plusButton.textContent = "+";
         plusButton.classList.add("plus-button");
         plusButton.onclick = () => updateQuantity(index, 1);
         buttonCell.appendChild(plusButton);
 
-        // Create the delete button
+        // Del button
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
         deleteButton.classList.add("delete-button");
@@ -103,7 +106,6 @@ function updateShoppingList() {
         buttonCell.appendChild(deleteButton);
 
         row.append(nameCell, quantityCell, buttonCell);
-
         tbody.appendChild(row);
     });
 }
@@ -112,12 +114,7 @@ function updateShoppingList() {
 function updateQuantity(index, change) {
     const item = shoppingList[index];
     item.quantity += change;
-
-    // Remove the item if quantity falls below 1
-    if (item.quantity <= 0) {
-        shoppingList.splice(index, 1);
-    }
-
+    if (item.quantity <= 0) { shoppingList.splice(index, 1); }
     updateShoppingList();
     itemCountSpan.textContent = `(${shoppingList.length})`;
 }
@@ -129,7 +126,7 @@ function removeItem(index) {
     itemCountSpan.textContent = `(${shoppingList.length})`;
 }
 
-// Run initialization functions
+// init
 document.addEventListener("DOMContentLoaded", () => {
     updateShoppingList();
 });

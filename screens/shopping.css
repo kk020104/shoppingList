@@ -1,3 +1,4 @@
+/** HTML STUFFS **/
 html {
     background-color: white;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -23,6 +24,11 @@ header {
     margin-bottom: 20px;
 }
 
+
+
+
+
+/* Shopping Container */
 #shopping-container {
     width: 100%;
     max-width: 600px;
@@ -32,6 +38,14 @@ header {
     gap: 20px;
 }
 
+#shopping-list-section {
+    background-color: white;
+    border: 0.01rem solid rgb(165, 120, 94);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* cool blue thingy */
 .section-title {
     display: flex;
     align-items: center;
@@ -50,50 +64,11 @@ header {
     align-items: center;
 }
 
-#toggleButton {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(186, 218, 241);
-    border: none;
-    cursor: pointer;
-    border-right: 1px solid gray;
-    border-radius: 50% 0 0 50%;
-    padding-right: 50px;
-}
-
-#addButton {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(186, 218, 241);
-    border: none;
-    cursor: pointer;
-    border-radius: 0 50% 50% 0;
-}
-
-#shopping-list-section {
-    background-color: white;
-    border: 0.01rem solid rgb(165, 120, 94);
-    padding: 15px;
-    border-radius: 10px;
-}
-
-#shopping-list.expanded {
-    display: table;
-}
-
-#shopping-list.collapsed {
-    display: none;
-}
 
 
+
+
+/* Shopping List */
 #shopping-list {
     width: 100%;
     margin-top: 10px;
@@ -108,7 +83,25 @@ header {
     position: relative;
 }
 
-.delete-button {
+/* Add, Plus, Minus, Delete */
+#addButton {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(186, 218, 241);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#addButton {
+    font-size: 24px;
+    border-radius: 0 50% 50% 0;
+}
+
+.plus-button, .minus-button, .delete-button {
     background-color: rgb(165, 120, 94);
     color: white;
     border: none;
@@ -116,24 +109,22 @@ header {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-right: 5px;
+}
+
+.delete-button {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.plus-button, .minus-button {
-    background-color: rgb(165, 120, 94);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 5px;
-}
 
-.inventory-button {
+
+
+
+/* Inventory and Add Item Buttons */
+.inventory-button, .add-item-button {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 16px;
     padding: 5px;
@@ -143,23 +134,18 @@ header {
     cursor: pointer;
 }
 
-.inventory-buttons {
+.add-item-button {
+    margin-right: 5px;
+}
+
+/* lil Submenu Buttons Container */
+.submenu-buttons {
     display: flex;
     padding-top: 10px;
     gap: 10px;
 }
 
-.add-item-button {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 16px;
-    padding: 5px;
-    background-color: rgb(225, 234, 239);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
+/* Item Count */
 #item-count {
     font-size: 18px;
     font-weight: normal;
@@ -167,7 +153,84 @@ header {
     margin-left: 10px;
 }
 
-/* Footer present in all css files... */
+
+
+
+
+/* Popups */
+#popup, #inventory-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#popup.hidden, #inventory-popup.hidden {
+    display: none;
+}
+
+/* Popup Content */
+.popup-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content label {
+    display: block;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.popup-content input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid rgb(165, 120, 94);
+    border-radius: 5px;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 20px 10px 0 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(186, 218, 241);
+    color: black;
+}
+
+/* Popup Content - Inventory List */
+.popup-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.popup-content ul li {
+    margin: 10px 0;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgb(225, 234, 239);
+    border-radius: 5px;
+}
+
+
+
+
+
+/* Footer */
 footer {
     width: 100%;
     display: flex;
@@ -182,52 +245,3 @@ footer img {
     width: 124px;
     height: 118px;
 }
-
-
-/* Popup styles */
-
-
-
-#popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-}
-
-.popup-content label {
-    display: block;
-    margin-top: 10px;
-}
-
-.popup-content input {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-}
-
-
-
-
-
-
-
-#popup.hidden {
-    display: none;
-}
-
-
