@@ -122,6 +122,17 @@ header {
     transform: translateY(-50%);
 }
 
+.plus-button, .minus-button {
+    background-color: rgb(165, 120, 94);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+}
+
 .inventory-button {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 16px;

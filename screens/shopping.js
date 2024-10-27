@@ -44,7 +44,7 @@ function addItem() {
 // Function to choose an item from inventory
 function chooseFromInventory() {
     const selectedItem = prompt(
-        "Choose an item to add from inventory: (WORK IN PROG)\n" + 
+        "Choose an item to add from inventory:\n" + 
         inventory.map((item, index) => `${index + 1}. ${item.name} (${item.quantity})`).join("\n")
     );
 
@@ -79,17 +79,47 @@ function updateShoppingList() {
         const quantityCell = document.createElement("td");
         quantityCell.textContent = item.quantity;
 
-        const deleteCell = document.createElement("td");
+        const buttonCell = document.createElement("td");
+
+        // Create the minus button
+        const minusButton = document.createElement("button");
+        minusButton.textContent = "-";
+        minusButton.classList.add("minus-button");
+        minusButton.onclick = () => updateQuantity(index, -1);
+        buttonCell.appendChild(minusButton);
+
+        // Create the plus button
+        const plusButton = document.createElement("button");
+        plusButton.textContent = "+";
+        plusButton.classList.add("plus-button");
+        plusButton.onclick = () => updateQuantity(index, 1);
+        buttonCell.appendChild(plusButton);
+
+        // Create the delete button
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "X";
         deleteButton.classList.add("delete-button");
         deleteButton.onclick = () => removeItem(index);
+        buttonCell.appendChild(deleteButton);
 
-        deleteCell.appendChild(deleteButton);
-        row.append(nameCell, quantityCell, deleteCell);
+        row.append(nameCell, quantityCell, buttonCell);
 
         tbody.appendChild(row);
     });
+}
+
+// Update the quantity of an item in the shopping list
+function updateQuantity(index, change) {
+    const item = shoppingList[index];
+    item.quantity += change;
+
+    // Remove the item if quantity falls below 1
+    if (item.quantity <= 0) {
+        shoppingList.splice(index, 1);
+    }
+
+    updateShoppingList();
+    itemCountSpan.textContent = `(${shoppingList.length})`;
 }
 
 // Remove an item from the shopping list
