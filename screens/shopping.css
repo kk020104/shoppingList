@@ -85,21 +85,21 @@ header {
     border-radius: 10px;
 }
 
-#shopping-list {
-    width: 100%;
-    margin-top: 10px;
-    background-color: white;
-    border: 0.01rem solid rgb(165, 120, 94);
-    border-radius: 10px;
-    display: none;
-}
-
 #shopping-list.expanded {
     display: table;
 }
 
 #shopping-list.collapsed {
     display: none;
+}
+
+
+#shopping-list {
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+    border: 0.01rem solid rgb(165, 120, 94);
+    border-radius: 10px;
 }
 
 #shopping-list td {
@@ -120,6 +120,33 @@ header {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.inventory-button {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    padding: 5px;
+    background-color: rgb(225, 234, 239);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.inventory-buttons {
+    display: flex;
+    padding-top: 10px;
+    gap: 10px;
+}
+
+.add-item-button {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    padding: 5px;
+    background-color: rgb(225, 234, 239);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 5px;
 }
 
 #item-count {

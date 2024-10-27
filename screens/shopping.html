@@ -14,18 +14,15 @@
         <div id="shopping-list-section">
             <div class="section-title">
                 <h2>Your List <span id="item-count">(0)</span></h2>
-                <button id="toggleButton" onclick="toggleShoppingList()">SEE/HIDE</button> <!-- "v" icon -->
-                <button id="addButton" onclick="showAddItemPopup()">+</button> <!-- New "+" button -->
             </div>
-            <table id="shopping-list" class="collapsed">
+            <div class="inventory-buttons">
+                <button id="chooseInventoryButton" class="inventory-button" onclick="chooseFromInventory()">Choose from Inventory</button>
+                <button id="addItemButton" class="add-item-button" onclick="showAddItemPopup()">Add an Item</button>
+            </div>
+            <table id="shopping-list">
                 <tbody></tbody>
             </table>
         </div>
-
-        <!-- <div id="recommended-section">
-            <h2>Recommended Items</h2>
-            <ul id="recommended-items"></ul>
-        </div> -->
     </div>
 
     <!-- Popup for adding items -->
