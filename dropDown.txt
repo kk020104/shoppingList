@@ -1,0 +1,13 @@
+<header>Shopping List</header>
+    
+    <div id="shopping-container">
+        <div id="shopping-list-section">
+            <div class="section-title">
+                <h2>Your List <span id="item-count">(0)</span></h2>
+                <button id="toggleButton" onclick="toggleShoppingList()">SEE/HIDE</button> <!-- "v" icon -->
+                <button id="addButton" onclick="showAddItemPopup()">+</button> <!-- New "+" button -->
+            </div>
+            <table id="shopping-list" class="collapsed">
+                <tbody></tbody>
+            </table>
+        </div>

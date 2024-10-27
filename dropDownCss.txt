@@ -1,0 +1,130 @@
+html {
+    background-color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+    background-color: rgb(253, 240, 224);
+    width: 640px;
+    height: 960px;
+    border-radius: 15px;
+    border: 0.5rem solid black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header {
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Fuzzy Bubbles';
+    margin-bottom: 20px;
+}
+
+#shopping-container {
+    width: 100%;
+    max-width: 600px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    background-color: rgb(186, 218, 241);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 24px;
+    color: black;
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 24px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+#toggleButton {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(186, 218, 241);
+    border: none;
+    cursor: pointer;
+    border-right: 1px solid gray;
+    border-radius: 50% 0 0 50%;
+    padding-right: 50px;
+}
+
+#addButton {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(186, 218, 241);
+    border: none;
+    cursor: pointer;
+    border-radius: 0 50% 50% 0;
+}
+
+#shopping-list-section {
+    background-color: white;
+    border: 0.01rem solid rgb(165, 120, 94);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#shopping-list {
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+    border: 0.01rem solid rgb(165, 120, 94);
+    border-radius: 10px;
+    display: none;
+}
+
+#shopping-list.expanded {
+    display: table;
+}
+
+#shopping-list.collapsed {
+    display: none;
+}
+
+#shopping-list td {
+    padding: 12px 15px;
+    font-size: 22px;
+    position: relative;
+}
+
+.delete-button {
+    background-color:rgb(165, 120, 94);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#item-count {
+    font-size: 18px;
+    font-weight: normal;
+    color: gray;
+    margin-left: 10px;
+}
