@@ -1,9 +1,10 @@
-const shoppingList = [];
 const shoppingListTable = document.getElementById("shopping-list");
 const itemCountSpan = document.getElementById("item-count");
 const popup = document.getElementById("popup");
 const inventoryPopup = document.getElementById("inventory-popup");
 const inventoryList = document.getElementById("inventory-list");
+
+let shoppingList = loadShoppingListFromLocalStorage();
 
 
 /* SAMPLE WIP INVENTORY, WILL GRAB THIS FROM OTHER PAGE... */
@@ -31,6 +32,7 @@ function addItem() {
         existingItem ? existingItem.quantity += quantity : shoppingList.push({ name: itemName, quantity });
         updateShoppingList();
         itemCountSpan.textContent = `(${shoppingList.length})`;
+        saveShoppingListToLocalStorage();
     }
     // close popup and clear input fields
     cancelAdd();
@@ -65,6 +67,8 @@ function addItemFromInventory(index) {
     existingItem ? existingItem.quantity += inventoryItem.quantity : shoppingList.push({ name: inventoryItem.name, quantity: inventoryItem.quantity });
     updateShoppingList();
     itemCountSpan.textContent = `(${shoppingList.length})`;
+    saveShoppingListToLocalStorage();
+    updateShoppingList();
     cancelInven();
 }
 
@@ -72,7 +76,7 @@ function addItemFromInventory(index) {
 
 
 
-/* Shopping List (like the actual list) */
+/* ===== Shopping List (like the actual list) ===== */
 function updateShoppingList() {
     const tbody = shoppingListTable.querySelector("tbody");
     tbody.innerHTML = "";
@@ -115,6 +119,7 @@ function updateQuantity(index, change) {
     const item = shoppingList[index];
     item.quantity += change;
     if (item.quantity <= 0) { shoppingList.splice(index, 1); }
+    saveShoppingListToLocalStorage();
     updateShoppingList();
     itemCountSpan.textContent = `(${shoppingList.length})`;
 }
@@ -122,9 +127,28 @@ function updateQuantity(index, change) {
 // Remove an item from the shopping list
 function removeItem(index) {
     shoppingList.splice(index, 1);
+    saveShoppingListToLocalStorage();
     updateShoppingList();
     itemCountSpan.textContent = `(${shoppingList.length})`;
 }
+
+
+
+
+
+
+/* ===== Saving Shopping list to local storage ===== */
+function saveShoppingListToLocalStorage() {
+    localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+}
+
+// Load the shopping list from local storage
+function loadShoppingListFromLocalStorage() {
+    const savedList = localStorage.getItem("shoppingList");
+    return savedList ? JSON.parse(savedList) : [];
+}
+
+
 
 // init
 document.addEventListener("DOMContentLoaded", () => {
