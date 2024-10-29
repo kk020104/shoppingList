@@ -142,7 +142,7 @@ function loadShoppingListFromLocalStorage() {
     return savedList ? JSON.parse(savedList) : [];
 }
 
-
+// Loads the needed information from the inventory localStorage to display for the user.
 function loadInventoryFromPage() {
     const savedList = localStorage.getItem("inventoryLists");
     if (savedList) {
