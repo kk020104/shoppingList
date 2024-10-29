@@ -20,10 +20,14 @@ function cancelAdd() { popup.classList.add("hidden"); }
 function addItem() {
     const itemName = document.getElementById("item-name").value.trim();
     const quantity = parseInt(document.getElementById("quantity").value.trim(), 10);
-    // check if there is a name and quantity is greater than 0
+    const unit = document.getElementById("unit").value;
+
+    // Check if there is a name and quantity is greater than 0
     if (itemName && (quantity > 0)) {
-        const existingItem = shoppingList.find(item => item.name.toLowerCase() === itemName.toLowerCase());
-        existingItem ? existingItem.quantity += quantity : shoppingList.push({ name: itemName, quantity });
+        // Find an existing item with the same name and unit
+        const existingItem = shoppingList.find(item => item.name.toLowerCase() === itemName.toLowerCase() && item.unit === unit);
+
+         existingItem ? existingItem.quantity += quantity : shoppingList.push({ name: itemName, quantity, unit });
         updateShoppingList();
         itemCountSpan.textContent = `(${shoppingList.length})`;
         saveShoppingListToLocalStorage();
@@ -32,6 +36,7 @@ function addItem() {
     cancelAdd();
     document.getElementById("item-name").value = "";
     document.getElementById("quantity").value = "";
+    document.getElementById("unit").value = "pcs";
 }
 
 
@@ -48,7 +53,7 @@ function populateInventoryList() {
     inventoryList.innerHTML = "";
     inventory.forEach((item, index) => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${item.name} (Quantity: ${item.quantity})`;
+        listItem.textContent = `${item.name} (Quantity: ${item.quantity} ${item.unit})`;
         listItem.onclick = () => addItemFromInventory(index);
         inventoryList.appendChild(listItem);
     });
@@ -58,8 +63,8 @@ function populateInventoryList() {
 // Add an item from inventory to the shopping list
 function addItemFromInventory(index) {
     const inventoryItem = inventory[index];
-    const existingItem = shoppingList.find(item => item.name.toLowerCase() === inventoryItem.name.toLowerCase());
-    existingItem ? existingItem.quantity += inventoryItem.quantity : shoppingList.push({ name: inventoryItem.name, quantity: inventoryItem.quantity });
+    const existingItem = shoppingList.find(item => item.name.toLowerCase() === inventoryItem.name.toLowerCase() && item.unit == inventoryItem.unit);
+    existingItem ? existingItem.quantity += inventoryItem.quantity : shoppingList.push({ name: inventoryItem.name, quantity: inventoryItem.quantity, unit: inventoryItem.unit });
     saveShoppingListToLocalStorage();
     updateShoppingList();
     cancelInven();
@@ -79,7 +84,7 @@ function updateShoppingList() {
         const nameCell = document.createElement("td");
         nameCell.textContent = item.name;
         const quantityCell = document.createElement("td");
-        quantityCell.textContent = item.quantity;
+        quantityCell.textContent = `${item.quantity} ${item.unit}`;
         const buttonCell = document.createElement("td");
 
         // Minus button
@@ -162,11 +167,11 @@ function loadInventoryFromPage() {
     // Extract relevant data from inventoryLists into a new inventory array
     const locations = ['fridge', 'freezer', 'pantry', 'counter'];
     let inventory = [];
-    
+
     locations.forEach(location => {
         if (inventoryLists[location]) {
             inventoryLists[location].forEach(item => {
-                inventory.push({ name: item.name, quantity: item.amt });
+                inventory.push({ name: item.name, quantity: item.amt, unit: item.unit });
             });
         }
     });
