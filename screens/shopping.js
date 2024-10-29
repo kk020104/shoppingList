@@ -4,10 +4,8 @@ const popup = document.getElementById("popup");
 const inventoryPopup = document.getElementById("inventory-popup");
 const inventoryList = document.getElementById("inventory-list");
 
+/* Shopping list is loaded from local storage, inventory taken care of in the DOM. */
 let shoppingList = loadShoppingListFromLocalStorage(); 
-
-
-/* SAMPLE WIP INVENTORY, WILL GRAB THIS FROM OTHER PAGE... */
 let inventory = [];
 
 
