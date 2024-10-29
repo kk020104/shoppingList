@@ -4,15 +4,11 @@ const popup = document.getElementById("popup");
 const inventoryPopup = document.getElementById("inventory-popup");
 const inventoryList = document.getElementById("inventory-list");
 
-let shoppingList = loadShoppingListFromLocalStorage();
+let shoppingList = loadShoppingListFromLocalStorage(); 
 
 
 /* SAMPLE WIP INVENTORY, WILL GRAB THIS FROM OTHER PAGE... */
-const inventory = [
-    { name: "Milk", quantity: 1 },
-    { name: "Eggs", quantity: 5 },
-    { name: "Bread", quantity: 0 }
-];
+let inventory = [];
 
 
 
@@ -54,23 +50,23 @@ function populateInventoryList() {
     inventoryList.innerHTML = "";
     inventory.forEach((item, index) => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${item.name} (Available: ${item.quantity})`;
+        listItem.textContent = `${item.name} (Quantity: ${item.quantity})`;
         listItem.onclick = () => addItemFromInventory(index);
         inventoryList.appendChild(listItem);
     });
 }
+
 
 // Add an item from inventory to the shopping list
 function addItemFromInventory(index) {
     const inventoryItem = inventory[index];
     const existingItem = shoppingList.find(item => item.name.toLowerCase() === inventoryItem.name.toLowerCase());
     existingItem ? existingItem.quantity += inventoryItem.quantity : shoppingList.push({ name: inventoryItem.name, quantity: inventoryItem.quantity });
-    updateShoppingList();
-    itemCountSpan.textContent = `(${shoppingList.length})`;
     saveShoppingListToLocalStorage();
     updateShoppingList();
     cancelInven();
 }
+
 
 
 
@@ -149,8 +145,29 @@ function loadShoppingListFromLocalStorage() {
 }
 
 
+function loadInventoryFromPage() {
+    const savedList = localStorage.getItem("inventoryLists");
+    if (savedList) {
+        inventoryLists = JSON.parse(savedList);
+    } else {
+        inventoryLists = {fridge: [], freezer: [], pantry: [], counter: []};
+    }
 
-// init
+    const locations = ['fridge', 'freezer', 'pantry', 'counter'];
+    inventory = [];
+    locations.forEach(location => {
+        if (inventoryLists[location]) {
+            inventoryLists[location].forEach(item => {
+                inventory.push({name: item.name, quantity: item.amt});
+            });
+        }
+    });
+}
+
+
+
+// init when doc is loaded
 document.addEventListener("DOMContentLoaded", () => {
+    inventory = loadInventoryFromPage();
     updateShoppingList();
 });
