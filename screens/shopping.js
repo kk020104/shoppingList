@@ -145,23 +145,34 @@ function loadShoppingListFromLocalStorage() {
 // Loads the needed information from the inventory localStorage to display for the user.
 function loadInventoryFromPage() {
     const savedList = localStorage.getItem("inventoryLists");
+    let inventoryLists;
+
+    // Load inventory from localStorage if available, else initialize as empty object
     if (savedList) {
         inventoryLists = JSON.parse(savedList);
     } else {
-        inventoryLists = {fridge: [], freezer: [], pantry: [], counter: []};
+        inventoryLists = {
+            fridge: [],
+            freezer: [],
+            pantry: [],
+            counter: []
+        };
     }
 
+    // Extract relevant data from inventoryLists into a new inventory array
     const locations = ['fridge', 'freezer', 'pantry', 'counter'];
-    inventory = [];
+    let inventory = [];
+    
     locations.forEach(location => {
         if (inventoryLists[location]) {
             inventoryLists[location].forEach(item => {
-                inventory.push({name: item.name, quantity: item.amt});
+                inventory.push({ name: item.name, quantity: item.amt });
             });
         }
     });
-}
 
+    return inventory;
+}
 
 
 // init when doc is loaded
