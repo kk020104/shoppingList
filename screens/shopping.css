@@ -29,7 +29,7 @@ header {
 #main-content {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full height of the viewport */
+    height: 100vh;
 }
 
 
@@ -86,8 +86,8 @@ header {
 /* Shopping List */
 #shopping-list {
     width: 100%;
-    max-height: 200px; /* Limit height to allow scrolling for items only */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 200px;
+    overflow-y: auto;
     margin-top: 10px;
     background-color: white;
     border: 0.01rem solid rgb(165, 120, 94);
