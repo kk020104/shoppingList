@@ -79,6 +79,7 @@ function addItemFromInventory(index) {
 function updateShoppingList() {
     const tbody = shoppingListTable.querySelector("tbody");
     tbody.innerHTML = "";
+    itemCountSpan.textContent = `(${shoppingList.length})`;
     shoppingList.forEach((item, index) => {
         const row = document.createElement("tr");
         const nameCell = document.createElement("td");
